@@ -55,7 +55,6 @@ void setup() {
   Wire.begin(adresse);
   Wire.onReceive(receiveEvent);
   Wire.onRequest(requestEvent);
-  Serial.begin(9600);
 }
 
 void loop() {
@@ -75,7 +74,6 @@ void receiveEvent(int howMany) {
       digitalWrite(Pins[hexToDec(String(data[2]))], String(data[3]).toInt());
     }else if(String(data[1]).toInt() == 1){
       analogWrite(Pins[hexToDec(String(data[2]))], data.substring(3).toInt());
-      Serial.println(data.substring(3).toInt());
     }
   }else if(String(data[0]).toInt() == 1){
       pinMode(Pins[hexToDec(String(data[1]))], String(data[2]).toInt());
