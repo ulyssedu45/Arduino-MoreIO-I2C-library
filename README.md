@@ -38,19 +38,6 @@ void setup() {
   digitalWrite(adressebit2, LOW);
   pinMode(adressebit3, INPUT);
   digitalWrite(adressebit3, LOW);
-
-  pinMode(io0, OUTPUT);
-  pinMode(io1, OUTPUT);
-  pinMode(io2, OUTPUT);
-  pinMode(io3, OUTPUT);
-  pinMode(io4, OUTPUT);
-  pinMode(io5, OUTPUT);
-  pinMode(io6, OUTPUT);
-  pinMode(io7, OUTPUT);
-  pinMode(io8, OUTPUT);
-  pinMode(io9, OUTPUT);
-  pinMode(io10, OUTPUT);
-  pinMode(io11, OUTPUT);
   
   if(digitalRead(adressebit0) == HIGH){
     adresse = adresse + 1;
