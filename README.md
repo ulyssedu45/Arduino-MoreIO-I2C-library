@@ -30,12 +30,23 @@ int adresse = 112;
 
 void setup() {
   
+  pinMode(adressebit0, OUTPUT);
+  digitalWrite(adressebit0, LOW);
   pinMode(adressebit0, INPUT);
   digitalWrite(adressebit0, LOW);
+  
+  pinMode(adressebit1, OUTPUT);
+  digitalWrite(adressebit1, LOW);
   pinMode(adressebit1, INPUT);
   digitalWrite(adressebit1, LOW);
+  
+  pinMode(adressebit2, OUTPUT);
+  digitalWrite(adressebit2, LOW);
   pinMode(adressebit2, INPUT);
   digitalWrite(adressebit2, LOW);
+  
+  pinMode(adressebit3, OUTPUT);
+  digitalWrite(adressebit3, LOW);
   pinMode(adressebit3, INPUT);
   digitalWrite(adressebit3, LOW);
   
