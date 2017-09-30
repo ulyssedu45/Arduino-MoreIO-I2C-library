@@ -5,8 +5,6 @@
 #### I2C card code
 
 ```c
-// Wire Slave Receiver
-
 #include <Wire.h>
 int adressebit0 = 2;
 int adressebit1 = 3;
