@@ -1,6 +1,6 @@
 # Arduino-MoreIO-I2C-library
 
-<img src="http://i.imgur.com/ul15tVz.png" width="430"> <img src="http://i.imgur.com/jltriXt.png" width="430">
+<img src="https://i.imgur.com/n3VSYwB.png" width="430"> <img src="https://i.imgur.com/zVXCQZA.png" width="430">
 
 #### I2C card code
 
