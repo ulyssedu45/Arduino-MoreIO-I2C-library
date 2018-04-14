@@ -26,6 +26,33 @@ int io11 = 17; //Digital / Analog
 
 int Pins[] = {6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
 
+typedef struct RecvData_t{
+  int A0;
+  int A1;
+  int A2;
+  int A3;
+  int io0;  //PWM
+  int io1;
+  int io2;
+  int io3;  //PWM
+  int io4; //PWM
+  int io5; //PWM
+  int io6;
+  int io7;
+  int io8; //Digital / Analog
+  int io9; //Digital / Analog
+  int io10; //Digital / Analog
+  int io11; //Digital / Analog
+};
+
+typedef union I2C_Packet_t{
+ RecvData_t data;
+ byte I2CPacket[sizeof(RecvData_t)];
+};  
+
+#define PACKET_SIZE sizeof(RecvData_t)
+I2C_Packet_t Packet;  
+
 int adresse = 112;
 
 void setup() {
@@ -58,7 +85,23 @@ void setup() {
 }
 
 void loop() {
-  delay(100);
+  Packet.data.A0 = analogRead(A0);
+  Packet.data.A1 = analogRead(A1);
+  Packet.data.A2 = analogRead(A2);
+  Packet.data.A3 = analogRead(A3);
+
+  Packet.data.io0 = digitalRead(io0);
+  Packet.data.io1 = digitalRead(io1);
+  Packet.data.io2 = digitalRead(io2);
+  Packet.data.io3 = digitalRead(io3);
+  Packet.data.io4 = digitalRead(io4);
+  Packet.data.io5 = digitalRead(io5);
+  Packet.data.io6 = digitalRead(io6);
+  Packet.data.io7 = digitalRead(io7);
+  Packet.data.io8 = digitalRead(io8);
+  Packet.data.io9 = digitalRead(io9);
+  Packet.data.io10 = digitalRead(io10);
+  Packet.data.io11 = digitalRead(io11);
 }
 
 void receiveEvent(int howMany) {
@@ -81,54 +124,7 @@ void receiveEvent(int howMany) {
 }
 
 void requestEvent() {
-   String data = "";
-   int A0 = analogRead(A0);
-   int A1 = analogRead(A1);
-   int A2 = analogRead(A2);
-   int A3 = analogRead(A3);
-
-   if(A0 >= 1000){
-    data = data + A0;
-   }else if(A0 < 1000 && A0 >= 100){
-    data = data + "0" + A0;
-   }else if(A0 < 100 && A0 >= 10){
-    data = data + "00" + A0;
-   }else if(A0 < 10 && A0 >= 0){
-    data = data + "000" + A0;
-   }
-   if(A1 >= 1000){
-    data = data + A1;
-   }else if(A1 < 1000 && A1 >= 100){
-    data = data + "0" + A1;
-   }else if(A1 < 100 && A1 >= 10){
-    data = data + "00" + A1;
-   }else if(A1 < 10 && A1 >= 0){
-    data = data + "000" + A1;
-   }
-   if(A2 >= 1000){
-    data = data + A2;
-   }else if(A2 < 1000 && A2 >= 100){
-    data = data + "0" + A2;
-   }else if(A2 < 100 && A2 >= 10){
-    data = data + "00" + A2;
-   }else if(A2 < 10 && A2 >= 0){
-    data = data + "000" + A2;
-   }
-   if(A3 >= 1000){
-    data = data + A3;
-   }else if(A3 < 1000 && A3 >= 100){
-    data = data + "0" + A3;
-   }else if(A3 < 100 && A3 >= 10){
-    data = data + "00" + A3;
-   }else if(A3 < 10 && A3 >= 0){
-    data = data + "000" + A3;
-   }
-
-   data = data + digitalRead(io0) + digitalRead(io1) + digitalRead(io2) + digitalRead(io3) + digitalRead(io4) + digitalRead(io5) + digitalRead(io6) + digitalRead(io7) + digitalRead(io8) + digitalRead(io9) + digitalRead(io10) + digitalRead(io11);
-   
-   for (int i=0; i <= data.length() + 1; i++){
-      Wire.write(data[i]);
-   }
+  Wire.write(Packet.I2CPacket, PACKET_SIZE); 
 }
 
 unsigned int hexToDec(String hexString) {
@@ -155,7 +151,6 @@ unsigned int hexToDec(String hexString) {
 #### Example
 
 ```c
-#include <Wire.h>
 #include <Moreio_I2C.h>
 
 Moreio_I2C mio1(127);
